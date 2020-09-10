@@ -6,6 +6,11 @@ bool mantissa( char numString[], int& numerator, int& denominator );
 
 char number[] = "123.456";
 int c, n , d;
+const int ERROR_VAL = -1;
+const char SPACE = ' ';
+const char MINUS = '-';
+const char PLUS = '+';
+const char PERIOD = '.';
 
 const char NULL_TERM = '\0'
 
@@ -43,10 +48,10 @@ bool characteristic( char numstring[], int& c )
     }
     numStart++;
   }
-  while( numString[numStart] == ' ' );
+  while( numString[numStart] == SPACE );
 
   //check if first char is unary sign
-  if( numString[numStart] == '+' || numString[numStart] == '-' )
+  if( numString[numStart] == PLUS || numString[numStart] == MINUS )
   {
     unarySign = true;
     numStart++;
@@ -55,9 +60,9 @@ bool characteristic( char numstring[], int& c )
   characterEnd = numStart; //set counter to start of number for speed
 
   //find the end of the characteristic, or end of string, whichever first, ensuring string is valid number
-  while( numString[characterEnd] != '.' || numString[characterEnd] != NULL_TERM )
+  while( numString[characterEnd] != PERIOD || numString[characterEnd] != NULL_TERM )
   {
-    if( !checkValid(numString[characterEnd]) && ( numString[characterEnd] != '.' || numString[characterEnd] != NULL_TERM)
+    if( !checkValid(numString[characterEnd]) && ( numString[characterEnd] != PERIOD || numString[characterEnd] != NULL_TERM)
     {
       return false;
     }
@@ -77,7 +82,7 @@ bool characteristic( char numstring[], int& c )
   }
 
   //if the number is negative make the final number negative
-  if(unarySign && numString[numStart-1] == '-')
+  if(unarySign && numString[numStart-1] == MINUS )
   {
     c *= -1;
   }
@@ -94,12 +99,12 @@ bool mantissa( char numString[], int& numerator, int& denominator )
 
   // loops while the start of the character array numString has not
   // reached the decimal point or NULL
-  while( numString[numStart] != '.' || numString[numStart] != NULL_TERM )
+  while( numString[numStart] != PERIOD || numString[numStart] != NULL_TERM )
   {
 
     // checks if the start of the character array numString is valid
     // and does not start with a space or a decimal point
-    if( !checkValid(numString[numStart]) && numString[numStart] != ' ' || numString[numStart] != '.')
+    if( !checkValid(numString[numStart]) && numString[numStart] != SPACE || numString[numStart] != PERIOD )
     {
       return false;
     }
@@ -170,15 +175,15 @@ int calcNum( char number, int exp )
   }
   else
   {
-    return -1;
+    return ERROR_VAL;
   }
 }
 
 //ensures char is valid
 bool checkValid( char value )
 {
-  if(value == NULL_TERM || (value != ' ' && value != '-' && value != '+' &&
-     value < '0' && value > '9' && value != '.')
+  if(value == NULL_TERM || (value != SPACE && value != MINUS && value != PLUS &&
+     value < '0' && value > '9' && value != PERIOD )
   {
     return false;
   }
