@@ -83,38 +83,66 @@ bool characteristic( char numstring[], int& c )
   return true;
 }
 
+
 bool mantissa( char numString[], int& numerator, int& denominator )
 {
+  // declaring integer variables
   int numStart, mantEnd, diff, i, expval, value = 0;
 
+  // loops while the start of the character array numString has not
+  // reached the decimal point or NULL
   while( numString[numStart] != '.' || numString[numStart] != NULL_TERM )
   {
+
+    // checks if the start of the character array numString is valid
+    // and does not start with a space or a decimal point
     if( !checkValid(numString[numStart]) && numString[numStart] != ' ' || numString[numStart] != '.')
     {
       return false;
     }
+
+    // increment numStart to get to the next value in the character array numString
     numStart++;
+
   }
 
+  // initialize the end of the mantissa as the last checked numStart int + 1
   mantEnd = numStart + 1;
 
+  // loops while the mantissa hasn't reached a NULL and is valid
   while( numString[mantEnd] != NULL_TERM || checkValid( numString[numStart] ) )
   {
+    // increment the end of the mantissa as long as 
     mantEnd++;
   }
 
+  // initialize the difference of how long the non-mantissa digits
+  // are from the mantissa digits
   diff = mantEnd - numStart;
 
+  // initialize exponent value as the difference calculated beforehand
   expval = diff
+
+  // initialize i as the start of hte mantissa
   i = numStart;
+
+  // loop from the beginning to the end of the mantissa
   while( expval > 0 && i > mantEnd )
   {
+    // add to the value variable using the calcNum helper function
     value += calcNum( numString[i], expval );
+
+    // increment i to go to the next mantissa digit
     i++;
+
+    // decrement the exponent value when going to the next digit
     expval--;
   }
 
+  // set the numerator as the calculated value above
   numerator = value;
+
+  // calculate the denominator using the difference
   denominator = calcNum( '1', diff );
 
   return true;
