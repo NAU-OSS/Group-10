@@ -9,6 +9,8 @@ int c, n , d;
 
 const char NULL_TERM = '\0'
 
+// main driver function, checks if the number array has a
+// charactertistic and mantissa
 int main( int argc, const char* argv[] )
 {
   //if the conversion from C strin got integers can take place
@@ -83,7 +85,8 @@ bool characteristic( char numstring[], int& c )
   return true;
 }
 
-
+// converts the mantissa into a numerator and denominator
+// and reports whether or not it succeeds
 bool mantissa( char numString[], int& numerator, int& denominator )
 {
   // declaring integer variables
@@ -149,6 +152,7 @@ bool mantissa( char numString[], int& numerator, int& denominator )
 
 }
 
+// converts the character of an integer into the integer
 int calcNum( char number, int exp )
 {
   int i = exp;
