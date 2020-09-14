@@ -83,6 +83,7 @@ bool characteristic( char numstring[], int& c )
   return true;
 }
 
+// returns the mantissa of a decimal value in a char array
 bool mantissa( char numString[], int& numerator, int& denominator )
 {
   int numStart, mantEnd, diff, i, expval, value = 0;
