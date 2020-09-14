@@ -6,9 +6,16 @@ bool mantissa( char numString[], int& numerator, int& denominator );
 
 char number[] = "123.456";
 int c, n , d;
+const int ERROR_VAL = -1;
+const char SPACE = ' ';
+const char MINUS = '-';
+const char PLUS = '+';
+const char PERIOD = '.';
 
 const char NULL_TERM = '\0'
 
+// main driver function, checks if the number array has a
+// charactertistic and mantissa
 int main( int argc, const char* argv[] )
 {
   //if the conversion from C strin got integers can take place
@@ -41,10 +48,10 @@ bool characteristic( char numstring[], int& c )
     }
     numStart++;
   }
-  while( numString[numStart] == ' ' );
+  while( numString[numStart] == SPACE );
 
   //check if first char is unary sign
-  if( numString[numStart] == '+' || numString[numStart] == '-' )
+  if( numString[numStart] == PLUS || numString[numStart] == MINUS )
   {
     unarySign = true;
     numStart++;
@@ -53,9 +60,9 @@ bool characteristic( char numstring[], int& c )
   characterEnd = numStart; //set counter to start of number for speed
 
   //find the end of the characteristic, or end of string, whichever first, ensuring string is valid number
-  while( numString[characterEnd] != '.' || numString[characterEnd] != NULL_TERM )
+  while( numString[characterEnd] != PERIOD || numString[characterEnd] != NULL_TERM )
   {
-    if( !checkValid(numString[characterEnd]) && ( numString[characterEnd] != '.' || numString[characterEnd] != NULL_TERM)
+    if( !checkValid(numString[characterEnd]) && ( numString[characterEnd] != PERIOD || numString[characterEnd] != NULL_TERM)
     {
       return false;
     }
@@ -75,7 +82,7 @@ bool characteristic( char numstring[], int& c )
   }
 
   //if the number is negative make the final number negative
-  if(unarySign && numString[numStart-1] == '-')
+  if(unarySign && numString[numStart-1] == MINUS )
   {
     c *= -1;
   }
@@ -83,45 +90,74 @@ bool characteristic( char numstring[], int& c )
   return true;
 }
 
-// returns the mantissa of a decimal value in a char array
+// converts the mantissa into a numerator and denominator
+// and reports whether or not it succeeds
 bool mantissa( char numString[], int& numerator, int& denominator )
 {
+  // declaring integer variables
   int numStart, mantEnd, diff, i, expval, value = 0;
 
-  while( numString[numStart] != '.' || numString[numStart] != NULL_TERM )
+  // loops while the start of the character array numString has not
+  // reached the decimal point or NULL
+  while( numString[numStart] != PERIOD || numString[numStart] != NULL_TERM )
   {
-    if( !checkValid(numString[numStart]) && numString[numStart] != ' ' || numString[numStart] != '.')
+
+    // checks if the start of the character array numString is valid
+    // and does not start with a space or a decimal point
+    if( !checkValid(numString[numStart]) && numString[numStart] != SPACE || numString[numStart] != PERIOD )
     {
       return false;
     }
+
+    // increment numStart to get to the next value in the character array numString
     numStart++;
+
   }
 
+  // initialize the end of the mantissa as the last checked numStart int + 1
   mantEnd = numStart + 1;
 
+  // loops while the mantissa hasn't reached a NULL and is valid
   while( numString[mantEnd] != NULL_TERM || checkValid( numString[numStart] ) )
   {
+    // increment the end of the mantissa as long as 
     mantEnd++;
   }
 
+  // initialize the difference of how long the non-mantissa digits
+  // are from the mantissa digits
   diff = mantEnd - numStart;
 
+  // initialize exponent value as the difference calculated beforehand
   expval = diff
+
+  // initialize i as the start of hte mantissa
   i = numStart;
+
+  // loop from the beginning to the end of the mantissa
   while( expval > 0 && i > mantEnd )
   {
+    // add to the value variable using the calcNum helper function
     value += calcNum( numString[i], expval );
+
+    // increment i to go to the next mantissa digit
     i++;
+
+    // decrement the exponent value when going to the next digit
     expval--;
   }
 
+  // set the numerator as the calculated value above
   numerator = value;
+
+  // calculate the denominator using the difference
   denominator = calcNum( '1', diff );
 
   return true;
 
 }
 
+// converts the character of an integer into the integer
 int calcNum( char number, int exp )
 {
   int i = exp;
@@ -139,15 +175,15 @@ int calcNum( char number, int exp )
   }
   else
   {
-    return -1;
+    return ERROR_VAL;
   }
 }
 
 //ensures char is valid
 bool checkValid( char value )
 {
-  if(value == NULL_TERM || (value != ' ' && value != '-' && value != '+' &&
-     value < '0' && value > '9' && value != '.')
+  if(value == NULL_TERM || (value != SPACE && value != MINUS && value != PLUS &&
+     value < '0' && value > '9' && value != PERIOD )
   {
     return false;
   }
