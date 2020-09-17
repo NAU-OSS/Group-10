@@ -1,43 +1,55 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 #include <math.h>
 
 bool characteristic( char numString[], int& c);
 bool mantissa( char numString[], int& numerator, int& denominator );
 
 char number[] = "123.456";
-int c, n , d;
+int c, n, d;
 const int ERROR_VAL = -1;
 const char SPACE = ' ';
 const char MINUS = '-';
 const char PLUS = '+';
 const char PERIOD = '.';
-
-const char NULL_TERM = '\0'
+const char NULL_TERM = '\0';
 
 // main driver function, checks if the number array has a
 // charactertistic and mantissa
 int main( int argc, const char* argv[] )
 {
-  //if the conversion from C strin got integers can take place
+  // initialized variables according to github review for the global variables
+  c = 0;
+  n = 0;
+  d = 0;
+  
+  //if the conversion from C string got integers can take place
   if( characteristic(number, c) && mantissa(number, n, d) )
   {
-    //do some math with c, n, and d
+	// output the newly obtained integers; if both functions return true
+	// c, n, and d should all be updated in the global scope
+    printf( "The characteristic is: %d\n", c );
+    printf( "The numerator is: %d\n", n );
+    printf( "The denominator is: %d\n", d );
   }
+  
   else
   {
-    //hande the error on input
+    fprintf( stderr, "Error converting" );
   }
 }
 
 //numstring may include leading or trailing spaces, unary plus or minus signs, integers, or real numbers.
 bool characteristic( char numstring[], int& c )
 {
+  // This statement is equivilant to initializing all variables listed to 0
   int numStart, characterEnd, diff, i = 0;
+
   bool unarySign = false;
 
   //set c to 0 just in case theres garbage passed into it.
   c = 0;
-
 
   //remove the leading white space, ensure valid first char
   do
@@ -95,7 +107,9 @@ bool characteristic( char numstring[], int& c )
 bool mantissa( char numString[], int& numerator, int& denominator )
 {
   // declaring integer variables
+  // This statement is equivilant to initializing all variables listed to 0
   int numStart, mantEnd, diff, i, expval, value = 0;
+  
 
   // loops while the start of the character array numString has not
   // reached the decimal point or NULL
@@ -179,7 +193,9 @@ int calcNum( char number, int exp )
   }
 }
 
-//ensures char is valid
+// ensures char is valid
+// if the value is not valid, then returns false, else returns true
+// according to the github review we need to fix this, but we believe it works fine
 bool checkValid( char value )
 {
   if(value == NULL_TERM || (value != SPACE && value != MINUS && value != PLUS &&
