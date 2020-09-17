@@ -41,15 +41,15 @@ int main( int argc, const char* argv[] )
 }
 
 //numstring may include leading or trailing spaces, unary plus or minus signs, integers, or real numbers.
-bool characteristic( char numstring[], int& c )
+bool characteristic( char numstring[], int& character )
 {
   // This statement is equivilant to initializing all variables listed to 0
   int numStart, characterEnd, diff, i = 0;
 
   bool unarySign = false;
 
-  //set c to 0 just in case theres garbage passed into it.
-  c = 0;
+  //set character to 0 just in case theres garbage passed into it.
+  character = 0;
 
   //remove the leading white space, ensure valid first char
   do
@@ -88,7 +88,7 @@ bool characteristic( char numstring[], int& c )
   //create the actual number
   while( diff >= 0 && i > characterEnd )
   {
-    c += calcNum( numString[i], diff );
+    character += calcNum( numString[i], diff );
     i++;
     diff--;
   }
@@ -96,9 +96,11 @@ bool characteristic( char numstring[], int& c )
   //if the number is negative make the final number negative
   if(unarySign && numString[numStart-1] == MINUS )
   {
-    c *= -1;
+    character *= -1;
   }
 
+  // passing the value found in function for character into the global variable
+  c = character;
   return true;
 }
 
@@ -166,6 +168,10 @@ bool mantissa( char numString[], int& numerator, int& denominator )
 
   // calculate the denominator using the difference
   denominator = calcNum( '1', diff );
+
+  // passing the numerator and denominator values found in function into the global variables
+  n = numerator;
+  d = denominator;
 
   return true;
 
