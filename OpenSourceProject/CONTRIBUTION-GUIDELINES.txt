@@ -1,0 +1,58 @@
+1. File a Bug Report
+
+    In order to file a bug report, write up some specifics in an issue request.
+
+    - What the issue is
+    - How to reproduce the bug
+    - What version of the project you are using
+
+    With this information, submit an issue request to the repository.
+
+
+2. Suggest a Feature
+
+    In order to suggest a new feature, submit a pull request. If possible,
+    include changes to the code with the pull request that adds this feature
+    in. If not including the feature with the pull request, and it is just
+    a suggestion to work on, please include the following:
+
+    - Your github name
+    - The section of code where your feature would be included
+        - If it would be a completely new feature please describe how it fits in here
+    - A short description of the feature
+    - A detailed description of the resources necessary to integrate this feature
+    - Any possible issues with integrating the feature into the existing codebase
+    - Any further notes you want to mention
+
+
+3. How to Setup your Environment and Run Tests
+
+    The current codebase is written in java and can be run without any special
+    requirements. Downloading the repo and compiling/running the Exodia.java
+    file will allow you to type a small message into the command line and have
+    it output the encrypted string. Adding a second comma delimited argument of
+    1 to the file will also output a .png image containing the same encrypted
+    message but in a hex color coded format.
+
+
+4. Types of Contributions We Are Looking For
+
+    Our current development team is working on the back end of the messaging service
+    and encryption standards so we are currently looking for front end mobile
+    developers and mobile network developers, although any help is appreciated.
+
+
+5. Roadmap/Vision for the Project
+
+    The end goal of this project is to create a decentralized encrypted messaging
+    app. Employing modern encryption standards on top of a peer-to-peer network
+    to reduce the risk posed to the user while their data is in transit and the
+    inherent risk of a centralized storage point.
+
+
+6. How Contributors Should or Should Not Get a Hold of the Lead Developers
+
+    The lead developers can be contacted through the Pijn developer email
+    address: pijn-dev@pijn.com (this does not currently exist) and questions
+    will be answered as soon as possible. Any other forms of contact will not
+    be addressed unless specified directly by the developer.
